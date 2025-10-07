@@ -1,0 +1,39 @@
+<apex:page controller="AccountListController">
+    <h1>Account List</h1>
+    
+    <!-- Filtering by Industry -->
+    <apex:form >
+        <apex:pageBlock title="Accounts">
+            <apex:pageBlockSection title="Filter Accounts" columns="2">
+                <apex:outputLabel value="Industry" for="industryFilter"/>
+                <apex:inputText id="industryFilter" value="{!industryFilter}" label="Industry" />
+                <apex:commandButton value="Filter" action="{!filterAccounts}" rerender="accountTable"/>
+            </apex:pageBlockSection>
+            
+            <!-- Accounts Table -->
+            <apex:pageBlockTable value="{!accounts}" var="acc" id="accountTable">
+                <apex:column value="{!acc.Name}" headerValue="Account Name"/>
+                <apex:column value="{!acc.Industry}" headerValue="Industry"/>
+                
+                <!-- Action Buttons -->
+                <apex:column >
+                    <apex:commandLink value="Edit" action="{!editAccount}" reRender="accountTable">
+                        <apex:param name="accountId" value="{!acc.Id}" />
+                    </apex:commandLink> |
+                    <apex:commandLink value="Delete" action="{!deleteAccount}" reRender="accountTable">
+                        <apex:param name="accountId" value="{!acc.Id}" />
+                    </apex:commandLink>
+                </apex:column>
+            </apex:pageBlockTable>
+            
+            <!-- Pagination Controls -->
+            <apex:facet name="footer">
+                <apex:pageBlockSection >
+                    <apex:commandLink action="{!previous}" value="Previous" rendered="{!hasPrevious}" />
+                    <apex:commandLink action="{!next}" value="Next" rendered="{!hasNext}" />
+                </apex:pageBlockSection>
+            </apex:facet>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
+                                        
