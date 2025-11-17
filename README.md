@@ -53,7 +53,7 @@ The "Edit" button takes users to the record's standard detail page, and the "Del
 
 
 
-**Salesforce ⇄ Spotify Integration using OAuth 2.0, Named Credentials & LWC**
+# Salesforce ⇄ Spotify Integration using OAuth 2.0, Named Credentials & LWC
 
 This project demonstrates how to integrate Salesforce with the Spotify Web API using OAuth 2.0, the newest Salesforce authentication architecture (External Credentials + Named Credentials), and a Lightning Web Component (LWC) UI to search and display Spotify tracks.
 
