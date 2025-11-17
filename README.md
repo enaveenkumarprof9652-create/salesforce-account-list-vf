@@ -47,3 +47,139 @@ Users can type in an Industry name to filter the accounts. After filtering, the 
 Clicking "Next" or "Previous" will load the next or previous set of Account records, with the filter still applied.
 **Edit/Delete:**
 The "Edit" button takes users to the record's standard detail page, and the "Delete" button deletes the record and reloads the page with the remaining accounts.
+
+
+
+
+
+
+**Salesforce ⇄ Spotify Integration using OAuth 2.0, Named Credentials & LWC**
+
+This project demonstrates how to integrate Salesforce with the Spotify Web API using OAuth 2.0, the newest Salesforce authentication architecture (External Credentials + Named Credentials), and a Lightning Web Component (LWC) UI to search and display Spotify tracks.
+
+**🚀 Features**
+
+OAuth 2.0 Authorization Code Flow
+
+Spotify login via Salesforce
+
+Secure token handling using
+
+Authentication Provider
+
+External Credential
+
+Named Credential
+
+Apex callouts to Spotify Web API
+
+LWC UI to search + display songs, albums, and artists
+
+No hardcoded secrets — 100% secure authentication
+
+**🏗️ Architecture Overview**
+LWC → Apex → Named Credential → External Credential → Auth Provider → Spotify API
+
+
+All API requests flow through Salesforce's secure authentication layer.
+No need to manually handle access tokens!
+
+**🔐 1. Create a Spotify Developer App**
+
+Go to Spotify Developer Dashboard
+
+Create an App
+
+Get:
+
+Client ID
+
+Client Secret
+
+Add the callback URL (from your Salesforce Auth Provider):
+
+https://<yourDomain>.my.salesforce.com/services/authcallback/Spotify
+
+**🔗 2. Configure Salesforce Connected App**
+
+Go to:
+Setup → App Manager → New Connected App
+
+Enable OAuth Settings:
+
+Field	Value
+Callback URL	same as above
+Selected OAuth Scopes	Full or basic identity
+Web Server OAuth Flow	Checked
+
+Save & wait for the app to provision.
+
+**🌐 3. Create Authentication Provider**
+
+Setup → Auth. Providers → New → OpenID Connect
+
+Use the details from Spotify:
+
+Field	Value
+Name	Spotify
+Authorize Endpoint	https://accounts.spotify.com/authorize
+
+Token Endpoint	https://accounts.spotify.com/api/token
+
+User Info Endpoint	https://api.spotify.com/v1/me
+
+Copy:
+
+Callback URL
+
+Provider URL
+
+Paste callback in Spotify app settings.
+
+**🔑 4. Set Up External Credential**
+
+Setup → Named Credentials → External Credentials
+
+Create:
+
+Authentication Protocol: OAuth 2.0
+
+Auth Provider: Spotify
+
+Scope: user-read-email user-read-private (or what you need)
+
+Add permission set mapping.
+
+**🌍 5. Create Named Credential**
+
+Setup → Named Credentials → New
+
+Field	Value
+URL	https://api.spotify.com
+
+External Credential	Your External Credential
+Authentication	OAuth 2.0
+
+**🧩 6. Apex Class for Spotify API Callouts**
+
+⚡ **7. LWC Component (Spotify Search UI)**
+
+🎨 **8. LWC UI HTML**
+
+✔️ **What This Project Demonstrates**
+
+Modern Salesforce API authentication
+Real-world OAuth 2.0 integration
+Secure Named Credentials best practices
+Practical Apex + LWC project
+Spotify API usage
+
+📂 Folder Structure
+├── force-app
+│   ├── main/default
+│   │   ├── lwc/spotifySearch
+│   │   ├── classes/SpotifyService.cls
+│   │   ├── namedCredentials
+│   │   └── externalCredentials
+├── README.md
+
