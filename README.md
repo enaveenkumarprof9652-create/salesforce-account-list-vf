@@ -183,3 +183,44 @@ Spotify API usage
 │   │   └── externalCredentials
 ├── README.md
 
+# Advanced Contact Manager - Salesforce Aura Component
+
+🚀 **Advanced Contact Manager** is a Salesforce Aura Component that allows users to efficiently manage Contacts with a modern UI. It supports searching, adding, editing, deleting, and paginating contacts—all in a Lightning Datatable.
+
+---
+
+## Features ✨
+
+- 🔍 **Search Contacts** by First Name, Last Name, or Email  
+- 💬 **Add & Edit Contacts** using intuitive modal pop-ups  
+- 🗑️ **Delete Contacts** with a single click  
+- 📄 **Pagination** with 5 records per page  
+- ✅ **Toast notifications** for success and error feedback  
+- ⚡ Built with **Aura Components + Apex Controllers** for smooth performance  
+
+---
+
+## Component Attributes
+
+| Attribute | Type | Description |
+|-----------|------|-------------|
+| `contacts` | `Contact[]` | List of contacts to display |
+| `searchKey` | `String` | Search keyword |
+| `isModalOpen` | `Boolean` | Toggle for modal visibility |
+| `isEdit` | `Boolean` | Flag for edit mode |
+| `contactRecord` | `Contact` | Single contact record for add/edit |
+| `pageNumber` | `Integer` | Current page number |
+| `pageSize` | `Integer` | Number of records per page (default 5) |
+| `totalRecords` | `Integer` | Total number of matching contacts |
+| `totalPages` | `Integer` | Total number of pages |
+
+---
+
+## Setup Instructions ⚙️
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/YourUsername/AdvancedContactManager.git
+
+
