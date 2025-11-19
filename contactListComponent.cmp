@@ -1,0 +1,86 @@
+<aura:component controller="ContactController"
+                implements="flexipage:availableForAllPageTypes,force:appHostable"
+                access="global">
+
+    <!-- Attributes -->
+    <aura:attribute name="contacts" type="Contact[]"/>
+    <aura:attribute name="searchKey" type="String" />
+    <aura:attribute name="isModalOpen" type="Boolean" default="false"/>
+    <aura:attribute name="isEdit" type="Boolean" default="false"/>
+    <aura:attribute name="contactRecord" type="Contact" default="{'sObjectType':'Contact'}" />
+
+    <!-- Pagination -->
+    <aura:attribute name="pageNumber" type="Integer" default="1"/>
+    <aura:attribute name="pageSize" type="Integer" default="5"/>
+    <aura:attribute name="totalRecords" type="Integer"/>
+    <aura:attribute name="totalPages" type="Integer"/>
+
+    <!-- Datatable Columns -->
+    <aura:attribute name="columns" type="List"/>
+
+    <!-- Load Data -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <!-- CARD -->
+    <lightning:card title="Advanced Contact Manager">
+
+        <!-- Search Bar -->
+        <div class="slds-m-around_small">
+            <lightning:input type="search"
+                             label="Search Contacts"
+                             placeholder="Search by name or email"
+                             value="{!v.searchKey}"
+                             onchange="{!c.searchContacts}" />
+        </div>
+
+        <!-- New Button -->
+        <aura:set attribute="actions">
+            <lightning:button label="New Contact" onclick="{!c.openNewModal}" />
+        </aura:set>
+
+        <!-- Datatable -->
+        <lightning:datatable 
+            data="{!v.contacts}"
+            keyField="Id"
+            columns="{!v.columns}"
+            onrowaction="{!c.handleRowAction}"
+        />
+
+        <!-- Pagination -->
+        <div class="slds-m-around_small">
+            <lightning:button label="Previous" onclick="{!c.prevPage}" disabled="{!v.pageNumber == 1}" />
+            <lightning:button label="Next" onclick="{!c.nextPage}" disabled="{!v.pageNumber == v.totalPages}" />
+            <p>Page {!v.pageNumber} of {!v.totalPages}</p>
+        </div>
+
+    </lightning:card>
+
+    <!-- MODAL -->
+    <aura:if isTrue="{!v.isModalOpen}">
+        <section class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+
+                <header class="slds-modal__header">
+                    <h2 class="slds-text-heading_medium">
+                        {!v.isEdit ? 'Edit Contact' : 'New Contact'}
+                    </h2>
+                </header>
+
+                <div class="slds-modal__content slds-p-around_medium">
+                    <lightning:input label="First Name" value="{!v.contactRecord.FirstName}" />
+                    <lightning:input label="Last Name" value="{!v.contactRecord.LastName}" required="true"/>
+                    <lightning:input label="Email" value="{!v.contactRecord.Email}" type="email"/>
+                </div>
+
+                <footer class="slds-modal__footer">
+                    <lightning:button label="Cancel" onclick="{!c.closeModal}" />
+                    <lightning:button variant="brand" label="Save" onclick="{!c.saveRecord}" />
+                </footer>
+
+            </div>
+        </section>
+
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+
+</aura:component>
